@@ -1,0 +1,9 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/1185818338_1963020548_1384190122.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2231640174_1238864223.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2483526428_2093367688.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2231640174_4286536927.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2483526428_542525501.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2231640174_1761406480.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2483526428_2011459211.mp4'
+file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/UseParametricFunction/624642324_2231640174_2157804459.mp4'
