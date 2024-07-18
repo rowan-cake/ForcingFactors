@@ -24,6 +24,7 @@ class SquareToCircle(Scene):
             number+=1
         self.play(Transform(triangle, circle))
         self.play(FadeOut(triangle))
+        
         arrows = [Arrow(2 * LEFT, 2 * RIGHT), Arrow(2 * DR, 2 * UL)]
         VGroup(*arrows).set_x(0).arrange(buff=2)
         self.play(GrowArrow(arrows[0]))
