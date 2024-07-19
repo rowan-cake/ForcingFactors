@@ -1,3 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/YoungModulus/1185818338_1115510320_223132457.mp4'
-file 'file:C:/Users/caker/GitHubRepos/ForcingFactors/media/videos/MassSpring/480p15/partial_movie_files/YoungModulus/624642324_1773062581_1410095211.mp4'
