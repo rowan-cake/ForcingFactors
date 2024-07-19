@@ -9,7 +9,8 @@ def equationOfMotion(mass,damping,stiffness,x_atZero,xPrim_atZero):
     """
     # Effects: 
     ==============
-    Takes coeffiecents and intial coniditions of a second order homogenous ODE equation and returns its solution. 
+    - Takes coeffiecents and intial coniditions of a second order homogenous ODE equation and returns its solution ploted values in a 
+    numpy array. 
     
     # Paremeters: 
     ==============
@@ -20,8 +21,8 @@ def equationOfMotion(mass,damping,stiffness,x_atZero,xPrim_atZero):
     - xPrim_atZero(float): another intial condition (a x'(t) value for t=0)
 
     # Returns:
-    ==============
-    equationOfMotion(Equation(SciPY)): returns a equation type from scipy?
+    ============== 
+    - equationOfMotion(Equation(SciPY)): returns a equation type from scipy?
     """
     x = Function('x')
     # Solve the ODE
@@ -32,13 +33,14 @@ def equationOfMotion(mass,damping,stiffness,x_atZero,xPrim_atZero):
                     ,ics={x(0): x_atZero, x(t).diff(t).subs(t,0): xPrim_atZero})
     rightHandSide = equationOfMotion.rhs
     numerical_function = sp.lambdify(t, rightHandSide, 'numpy')
-    t_vals = np.linspace(0, 10, 50)
+    t_vals = np.linspace(0, 10, 12)
     x_vals = numerical_function(t_vals)
-    x_vals+=1
+    for num in x_vals:
+        print(num)
     return x_vals,t_vals,rightHandSide
 
 if __name__ == "__main__":
-    eq = equationOfMotion(3,2,1,0,1)
+    eq = equationOfMotion(6,4,2,-1,6)
     #rhs = eq.rhs
     #numerical_function = sp.lambdify(t, rhs, 'numpy')
 
