@@ -31,16 +31,22 @@ def equationOfMotion(mass,damping,stiffness,x_atZero,xPrim_atZero):
                     +stiffness*x(t)
                     , x(t)
                     ,ics={x(0): x_atZero, x(t).diff(t).subs(t,0): xPrim_atZero})
+    # RHS of the solved ODE
     rightHandSide = equationOfMotion.rhs
+    # Now we have a function that can take inputs and turn them to proper outputs based on the RHS of the solved ODE
     numerical_function = sp.lambdify(t, rightHandSide, 'numpy')
-    t_vals = np.linspace(0, 10, 12)
+    # Input points to the solved ODE (start,end,howManyPointsInBetween)
+    t_vals = np.linspace(0, 10, 200)
+    # Take inputs and turn them to outputs
     x_vals = numerical_function(t_vals)
+    # print them just to see
     for num in x_vals:
         print(num)
+    # return the x_vals the t_vals and the symbolic RHS (done for ploting purposes) in a tuple
     return x_vals,t_vals,rightHandSide
 
 if __name__ == "__main__":
-    eq = equationOfMotion(6,4,2,-1,6)
+    eq = equationOfMotion(1,0,2,0,6)
     #rhs = eq.rhs
     #numerical_function = sp.lambdify(t, rhs, 'numpy')
 
