@@ -1,10 +1,12 @@
 import numpy as np
 from manim import *
+from sympy import *
+from sympy.abc import t
 from MassSpringCalculation import equationOfMotion
 
 
 
-class massSpring(Scene):
+class MassSpring(Scene):
     
     # Functions to define the shape of the spring
     def springShape(self,x):
@@ -13,24 +15,26 @@ class massSpring(Scene):
     def springLength(self,start,end):
         # returns the length of the spring in the frame
         # the last 0.1 makes it faster for some reason
-        return np.array([start, end, 0.1])
+        return np.array([start, end, 0.1])  
     
     # The scence itself
-    def construct(self):
+    def construct(self,mass,damping,stiffness,x_atZero,xPrime_atZero,forcingFactor=0):
+        
         # Objects in scence
-        spring = ParametricFunction(self.springShape,
+        springObject = ParametricFunction(self.springShape,
                                 t_range=self.springLength(-4*TAU,4.1*TAU)).align_to(np.array([-7,0,0]), np.array([-1,0,0]))
-        mass = Square(0.25,
+        massObject = Square(0.5,
                       color=RED_A)     
-        newValueTracker = ValueTracker(0)
+        baseObject = Rectangle(width=1,height=3,color=BLUE_E)
+        valueTracker = ValueTracker(0)
 
         # These are fucntions that redraw the spring and mass each frame.
         def springUpdater(spring):
-            shiftX = mass.get_center()[0]
+            shiftX = massObject.get_center()[0]
             # Fix the left end at a specific point, (-7, 0, 0)
-            left_end = np.array([-7, 0, 0])
+            left_end = np.array([-7.0, 0, 0])
             # Determine the new position of the right end (center of the mass)
-            right_end = mass.get_center()
+            right_end = massObject.get_center()
             # Calculate the new length of the spring based on the distance between the ends(this is needed to keep the amplitude looking the same throughout the animation)
             spring_length = np.linalg.norm(right_end - left_end)
             # Define the new parametric function for the spring
@@ -39,26 +43,40 @@ class massSpring(Scene):
                                                                  0]),
                                             t_range=[0, spring_length]))    
         def massUpdater(mass):
-            shiftXNEW = newValueTracker.get_value()
+            shiftXNEW = valueTracker.get_value()
             # if you want to keep the motion on the screen activate("clampedX = np.clip(shiftXNEW, -7, 7)") this (and set mass.setx(clampedX)) maybe it wasnt working last time
             mass.set_x(shiftXNEW)
         
         # Adds objects to the scence
-        self.add(mass)
-        self.add(spring)
+        self.add(massObject)
+        self.add(springObject)
+        self.add(baseObject)
+        
 
         # Add the updater of each respective object
-        spring.add_updater(springUpdater)
-        mass.add_updater(massUpdater)        
+        springObject.add_updater(springUpdater)
+        massObject.add_updater(massUpdater)
+            
         
-        mass.move_to(np.array([0,0,0]))
-        x_vals = equationOfMotion(1,0,2,0,6)
+        # Postion objects
+        baseObject.set_fill(BLUE_E)
+        massObject.move_to(np.array([0,0,0]))
+        massObject.set_fill(RED_E)
+
+        baseObject.move_to(np.array([-7,0,0]))
+
+        # Generate points
+        equationData = equationOfMotion(mass,damping,stiffness,x_atZero,xPrime_atZero,forcingFactor)  # type: ignore
               
-        #calling the numerical values of x(t) and setting the valueTracker = x(t) and that drives the motion of the scence
-        # THIS DRIVE THE MOTION OF THE SCENCE!
-        for x_val in x_vals[0]:
-            self.play(newValueTracker.animate.set_value(x_val),run_time=0.0001, rate_func=linear)
-        
+        # calling the numerical values of x(t) and setting the valueTracker = x(t) and that drives the motion of the scence
+        # THIS DRIVEs THE MOTION OF THE SCENCE!
+        for x_val in equationData[0]:
+            self.play(valueTracker.animate.set_value(x_val),run_time=0.05, rate_func=linear)
+    
+       
+
+
+
 
         
     
